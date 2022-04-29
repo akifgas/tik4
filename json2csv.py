@@ -2,6 +2,7 @@
 path = "/truba_scratch/agasi/Dataset/"
 
 import json, os
+import pandas as pd
 
 def vrd_dicts(path):
     json_file = os.path.join(path, "relationships.json")
@@ -32,8 +33,8 @@ def vrd_dicts(path):
         dataset_dicts.append(record)
     return dataset_dicts
 
+
 result = vrd_dicts(path)
-print(result)
 
 file_name = "/truba_scratch/agasi/Dataset/relationships_json.json"
 
@@ -44,8 +45,6 @@ f.close()
 
 # JSON to CSV
 
-import pandas as pd
-
 file_name = "/truba_scratch/agasi/Dataset/relationships_json.json"
 
 with open(file_name) as f: 
@@ -55,4 +54,3 @@ f.close()
 df = pd.json_normalize(json_data, record_path=["relationships"], meta=["image_id"])
 df.to_csv("/truba_scratch/agasi/Dataset/relationships.csv",index = False, header = False, sep=";")
 
-df
