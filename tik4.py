@@ -17,7 +17,7 @@ from tensorflow.keras.models import load_model
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from imutils import paths
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import cv2
@@ -27,7 +27,7 @@ import os
 path = "/truba_scratch/agasi/Dataset/"
 
 INIT_LR = 1e-4
-NUM_EPOCHS = 20
+NUM_EPOCHS = 1
 BATCH_SIZE = 32
 
 print("[INFO] loading dataset...")
@@ -90,6 +90,9 @@ split_o_bbox = train_test_split(o_bbox,test_size=0.20, random_state=42)
 split_labels = train_test_split(labels,test_size=0.20, random_state=42)
 (trainLabels, testLabels) = split_labels[:2]
 
+mirrored_strategy = tf.distribute.MirroredStrategy()
+GLOBAL_BATCH_SIZE = BATCH_SIZE * mirrored_strategy.num_replicas_in_sync
+
 with mirrored_strategy.scope():
 	vgg = VGG16(weights="imagenet", include_top=False, input_shape=(224,224,3))
 	vgg.trainable = False
@@ -127,7 +130,7 @@ trainTargets = {"subject_bbox": trainsBBoxes, "object_bbox": trainoBBoxes, "pred
 testTargets = {"subject_bbox": testsBBoxes, "object_bbox": testoBBoxes, "predicate": testLabels}
 
 print("[INFO] training model...")
-H = model.fit(trainImages, trainTargets, validation_data=(testImages, testTargets),batch_size=BATCH_SIZE,epochs=NUM_EPOCHS,verbose=1)
+H = model.fit(trainImages, trainTargets, validation_data=(testImages, testTargets),batch_size=GLOBAL_BATCH_SIZE,epochs=NUM_EPOCHS,verbose=1)
 
 # serialize the model to disk
 print("[INFO] saving object detector model...")
