@@ -1,8 +1,8 @@
 
-path = "/truba_scratch/agasi/Dataset/"
-
 import json, os
 import pandas as pd
+
+path = "/truba_scratch/agasi/Dataset/"
 
 def vrd_dicts(path):
     json_file = os.path.join(path, "relationships.json")
@@ -22,9 +22,9 @@ def vrd_dicts(path):
                
                 "subject_bbox": {"x":anno["subject"]["x"], "y":anno["subject"]["y"], "w":anno["subject"]["w"], "h":anno["subject"]["h"]},
                 "object_bbox": {"x":anno["object"]["x"], "y":anno["object"]["y"], "w":anno["object"]["w"], "h":anno["object"]["h"]},
-                "object":  {anno["object"]["name"]},
-                "subject":  {anno["subject"]["name"]},
-                "predicate": {anno["predicate"]}
+                "object":anno["object"]["name"],
+                "subject":anno["subject"]["name"],
+                "predicate":anno["predicate"]
             }
            
             objs.append(obj)
@@ -33,20 +33,15 @@ def vrd_dicts(path):
         dataset_dicts.append(record)
     return dataset_dicts
 
-
 result = vrd_dicts(path)
 
 file_name = "/truba_scratch/agasi/Dataset/relationships_json.json"
-
 with open(file_name, "w") as f: 
      json.dump(result, f,indent=2)
 f.close()
 
-
 # JSON to CSV
-
 file_name = "/truba_scratch/agasi/Dataset/relationships_json.json"
-
 with open(file_name) as f: 
      json_data = json.loads(f.read())
 f.close()
