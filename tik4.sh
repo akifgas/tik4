@@ -2,7 +2,7 @@
 #SBATCH -J tik4             
 #SBATCH -A agasi             
 #SBATCH -o tik4.out    
-#SBATCH -p debug          
+#SBATCH -p akya-cuda          
 #SBATCH -N 1              
 #SBATCH -n 1              
 #SBATCH --gres=gpu:4            
