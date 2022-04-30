@@ -138,13 +138,13 @@ model.save("/truba_scratch/agasi/tik4/detector.h5", save_format="h5")
 
 # serialize the label binarizer to disk
 print("[INFO] saving label binarizer...")
-f = open("/truba_scratch/agasi/trb/lb.pickle", "wb")
+f = open("/truba_scratch/agasi/tik4/lb.pickle", "wb")
 f.write(pickle.dumps(lb))
 f.close()
 
 print("[INFO] loading object detector...")
 
-model = load_model("/truba_scratch/agasi/trb/detector.h5")
+model = load_model("/truba_scratch/agasi/tik4/detector.h5")
 lb = pickle.loads(open("/truba_scratch/agasi/tik4/lb.pickle", "rb").read())
 
 image = load_img("/truba_scratch/agasi/Dataset/images/1.jpg", target_size=(224, 224))
