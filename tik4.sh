@@ -7,7 +7,7 @@
 #SBATCH -n 1              
 #SBATCH --gres=gpu:4            
 #SBATCH --cpus-per-task=40       
-#SBATCH --time=10:00:00      
+#SBATCH --time=04-00:00:00      
 
 module purge 
 module load centos7.9/lib/cuda/11.3 
