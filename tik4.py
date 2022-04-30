@@ -44,7 +44,7 @@ for csvPath in paths.list_files(path, validExts=(".csv")):
 		(obj, subject, predicate, subx, suby, subw, subh, objx, objy, objw, objh, image_id) = row
 		#(_, _, predicate, subx, suby, subw, subh, objx, objy, objw, objh, _) = row
 		
-		imgPath = os.path.join(["/truba_scratch/agasi/Dataset/images/",image_id+".jpg"])
+		imgPath = os.path.join("/truba_scratch/agasi/Dataset/images/",image_id+".jpg")
 		image = cv2.imread(imgPath)
 		(h, w) = image.shape[:2]
 	
