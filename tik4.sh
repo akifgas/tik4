@@ -7,11 +7,12 @@
 #SBATCH -n 1              
 #SBATCH --gres=gpu:4            
 #SBATCH --cpus-per-task=40       
-#SBATCH --time=04-00:00:00      
+#SBATCH --time=24:00:00      
 
 module purge 
 module load centos7.9/lib/cuda/11.3 
 
+#eval "$(/truba/sw/centos7.9/lib/anaconda3/2021.11/bin/conda shell.bash hook)"
 eval "$(/truba/home/agasi/miniconda3/bin/conda shell.bash hook)"
 conda activate tik4 
 
